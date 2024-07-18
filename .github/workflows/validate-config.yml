@@ -57,6 +57,7 @@ jobs:
                 break
               fi
             done < files_collector.txt
+            echo -e "${BOLD} found:${NC}\n$(cat files_collector.txt)\n"
 
             # Find colconfig.yaml files
             find . -name "colconfig.yaml" > files.txt
