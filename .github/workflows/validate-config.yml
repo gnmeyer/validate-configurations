@@ -46,25 +46,6 @@ jobs:
 
             root=$(pwd)
 
-            #TESTING
-            echo -e "TESTING \n"
-            grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root > files_collector.txt
-
-            echo -e "${BOLD} found:${NC}\n$(cat files_collector.txt)\n"
-
-            echo -e "${BOLD}${CYAN}Version Files Map:${NC}\n"
-            while read -r filename; do
-              while read -r line; do
-                if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
-                  version=$(echo "$line" | awk -F':' '{print $3}')
-                  echo -e "(dirname "$filename"):$version" >> version_files_map.txt
-                  break
-                fi
-              done < "$filename"
-            done < files_collector.txt
-
-            echo -e "${BOLD}Version Files Map:${NC}\n$(cat version_files_map.txt)\n"
-
             # Find colconfig.yaml files
             find . -name "colconfig.yaml" > files.txt
 
@@ -75,8 +56,6 @@ jobs:
             while read -r line; do
                 total_files=$((total_files+1))
             done < files.txt
-
-
 
             while read -r line; do
 
@@ -108,6 +87,7 @@ jobs:
                 done < "$file_with_image"
 
                 cd $dir #Move into the config directory
+                echo -e "🚀 ${BOLD}Executing: ${ITALIC}${LIGHT_GREEN}docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml${NC} 🐳\n"
 
                 output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
                 if echo "$output" | grep -q "Error:"; then
