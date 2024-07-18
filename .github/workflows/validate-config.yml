@@ -95,12 +95,12 @@ jobs:
 
                 output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
                 if echo "$output" | grep -q "Error:"; then
-                    echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed${NC}"
+                    echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed${NC} ❌"
                     echo -e "${ITALIC}${output}"
                     fail_count=$((fail_count+1))
 
                 else
-                  echo -e "✅ ${BOLD}Validation ${LIGHT_GREEN}${BOLD}${ITALIC}succeeded${NC}"
+                  echo -e "✅ ${BOLD}Validation ${LIGHT_GREEN}${BOLD}${ITALIC}succeeded${NC} ✅"
 
                 fi
                 cd $root
