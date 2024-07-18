@@ -66,7 +66,7 @@ jobs:
               dir=$(dirname "$line") # Get the config directory
 
               echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
-              echo -e "🔄 ${BOLD}[${YELLOW}${BOLD}$counter${NC}${BOLD}/$total_files] 🔄"
+              echo -e "${CYAN}🔄 ${BOLD}[${YELLOW}$counter${NC}${CYAN}/${YELLOW}$total_files${NC}${CYAN}] 🔄${NC}"
               echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
 
               root_dir="${dir%/*/*}" # Get the root directory
@@ -97,7 +97,7 @@ jobs:
                   echo -e "${output}"
 
               else
-                echo -e "✅ ${BOLD}Validation ${LIGHT_GREEN}${BOLD}${ITALIC}succeeded ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir${NC}"
+                echo -e "✅ ${BOLD}Validation ${LIGHT_GREEN}${BOLD}${ITALIC}succeeded ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml{NC}"
 
               fi
               cd $root
