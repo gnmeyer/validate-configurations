@@ -52,9 +52,24 @@ jobs:
 
           while read -r line; do
               echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
-              dir=$(dirname "$line")
-              cd $dir
-              output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:latest-amd64 validate --config /config/colconfig.yaml 2>&1 || true)
+              root_dir="${dir%/*/*}" # Get the root directory
+
+              #DEBUG
+              echo -e "Extracted Root Directory: $root_dir\n"
+
+              file_with_image=$(grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root_dir)
+
+              #DEBUG
+              echo -e "Files containing the specified image reference: $file_with_image\n"
+
+              while read -r line; do
+                  if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
+                      version=$(echo "$line" | awk -F':' '{print $3}')
+                      echo -e "🔍 ${BOLD}Found Image Version: ${MAGENTA}${BOLD}$version 🐳 📦${NC}\n"
+                      break
+                  fi
+              done < "$file_with_image"
+              output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
               if echo "$output" | grep -q "Error:"; then
                   echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml${NC}\n"
                   echo -e "${output}\n"
