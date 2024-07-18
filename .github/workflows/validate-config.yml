@@ -89,7 +89,7 @@ jobs:
                 cd $dir #Move into the config directory
 
                 # Print the formatted command
-                echo -e "🚀 ${ITALIC}Executing: 🐳\n${CYAN}${ITALIC}$(cat <<-EOF
+                echo -e "🚀 ${ITALIC}Executing: 🐳\n${CYAN}${ITALIC}$(cat <<EOF
                     docker run -v $(pwd):/config
                     ghcr.io/liatrio/liatrio-otel-collector:$version
                     validate --config /config/colconfig.yaml
