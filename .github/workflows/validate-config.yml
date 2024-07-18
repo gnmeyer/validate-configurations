@@ -68,12 +68,11 @@ jobs:
                 echo -e "${CYAN}${BOLD}[${YELLOW}$counter${NC}${CYAN}/${YELLOW}$total_files${NC}${CYAN}]${NC} 🧪 ${YELLOW}${ITALIC}$dir/config.yaml${NC}"
                 echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
 
-                if [[ "$dir" != *"overlay"* ]]; then
+                if [[ "$dir" == *"overlay"* ]]; then
                   #then the file is in this directory
-                  continue
-                else
                   dir="${dir%/*/*}" # Get the root directory
                 fi
+
                 #DEBUG
                 echo -e "📤 ${ITALIC}Extracted Root Directory: 🔧\n     ${CYAN}${ITALIC}$dir${NC}\n"
 
