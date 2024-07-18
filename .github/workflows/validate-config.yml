@@ -29,6 +29,7 @@ jobs:
           LIGHT_GREEN='\033[1;32m'
           LIGHT_RED='\033[1;31m'
           MAGENTA='\033[1;35m'
+          LIGHT_BLUE='\033[1;34m'
 
           echo -e "\n${BOLD}Hello from ${CYAN}${BOLD}validate-config.yml!${NC} \xF0\x9F\x91\x8B \n"
           echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
@@ -56,12 +57,12 @@ jobs:
               root_dir="${dir%/*/*}" # Get the root directory
 
               #DEBUG
-              echo -e "Extracted Root Directory: $root_dir\n"
+              echo -e "📤 ${BOLD}Extracted Root Directory: ${CYAN}${BOLD}$root_dir${NC} 🔧\n"
 
               file_with_image=$(grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root_dir)
 
               #DEBUG
-              echo -e "Files containing the specified image reference: $file_with_image\n"
+              echo -e "📁 ${BOLD}Files containing the specified image reference: ${LIGHT_BLUE}${BOLD}$file_with_image${NC} 🔧\n"
 
               while read -r line; do
                   if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
