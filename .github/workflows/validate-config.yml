@@ -88,9 +88,9 @@ jobs:
 
                 cd $dir #Move into the config directory
                 echo -e "🚀 ${ITALIC}Executing: 🐳\n$"
-                echo -e "{CYAN}${ITALIC}docker run -v $(pwd):/config\n"
-                echo -e "{CYAN}${ITALIC}ghcr.io/liatrio/liatrio-otel-collector:$version\n"
-                echo -e "{CYAN}${ITALIC}validate --config /config/colconfig.yaml${NC}\n\n"
+                echo -e "${CYAN}${ITALIC}docker run -v $(dir):/config\n"
+                echo -e "${CYAN}${ITALIC}ghcr.io/liatrio/liatrio-otel-collector:$version\n"
+                echo -e "${CYAN}${ITALIC}validate --config /config/colconfig.yaml${NC}\n"
 
                 output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
                 if echo "$output" | grep -q "Error:"; then
