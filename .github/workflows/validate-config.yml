@@ -33,6 +33,7 @@ jobs:
 
           counter=0
           total_files=0
+          fail_count=0
 
           echo -e "\n${BOLD}Hello from ${CYAN}${BOLD}validate-config.yml!${NC} \xF0\x9F\x91\x8B \n"
           echo -e "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
@@ -93,6 +94,7 @@ jobs:
               if echo "$output" | grep -q "Error:"; then
                   echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml${NC}"
                   echo -e "${ITALIC}${output}"
+                  fail_count=$((fail_count+1))
 
               else
                 echo -e "✅ ${BOLD}Validation ${LIGHT_GREEN}${BOLD}${ITALIC}succeeded ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml{NC}"
@@ -105,7 +107,7 @@ jobs:
 
 
           if((counter>0)); then
-              echo -e "🚨 ${NC}${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${LIGHT_RED}${BOLD}${ITALIC}$counter${NC}${BOLD}/$total_files configurations! 🚨\n"
+              echo -e "🚨 ${NC}${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${LIGHT_RED}${BOLD}${ITALIC}$fail_count${NC}${BOLD}/$total_files configurations! 🚨\n"
               exit 1
           else
               echo -e "✅ ${BOLD}All configurations are ${LIGHT_GREEN}${BOLD}${ITALIC}valid! 🎉\n"
