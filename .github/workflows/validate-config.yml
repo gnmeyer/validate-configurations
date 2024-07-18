@@ -50,14 +50,16 @@ jobs:
             echo -e "TESTING \n"
             grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root_dir > files_collector.txt
 
-            while read -r line; do
-              if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
-                version=$(echo "$line" | awk -F':' '{print $3}')
-                echo -e "🔍 ${ITALIC}Found Image Version: ${MAGENTA}${ITALIC}$version 🔧${NC}\n"
-                break
-              fi
-            done < files_collector.txt
             echo -e "${BOLD} found:${NC}\n$(cat files_collector.txt)\n"
+            while read -r filename; do
+              while read -r line; do
+                if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
+                  version=$(echo "$line" | awk -F':' '{print $3}')
+                  echo -e "🔍 ${ITALIC}Found Image Version: ${MAGENTA}${ITALIC}$version 🔧${NC}\n"
+                  break
+                fi
+              done < "$filename"
+            done < files_collector.txt
 
             # Find colconfig.yaml files
             find . -name "colconfig.yaml" > files.txt
