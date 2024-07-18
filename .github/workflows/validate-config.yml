@@ -57,12 +57,12 @@ jobs:
               root_dir="${dir%/*/*}" # Get the root directory
 
               #DEBUG
-              echo -e "📤 ${BOLD}Extracted Root Directory: ${CYAN}${BOLD}$root_dir${NC} 🔧\n"
+              echo -e "📤 ${ITALIC}Extracted Root Directory: ${CYAN}${BOLD}$root_dir${NC} 🔧\n"
 
               file_with_image=$(grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root_dir)
 
               #DEBUG
-              echo -e "📁 ${BOLD}Files containing the specified image reference: ${LIGHT_BLUE}${BOLD}$file_with_image${NC} 🔧\n"
+              echo -e "📁 ${ITALIC}Files containing the specified image reference: ${LIGHT_BLUE}${BOLD}$file_with_image${NC} 🔧\n"
 
               while read -r line; do
                   if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
