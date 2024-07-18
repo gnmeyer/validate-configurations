@@ -72,14 +72,14 @@ jobs:
                   fi
               done < "$file_with_image"
 
-              echo -e "\n"
+              echo "\n"
 
               cd $dir #Move into the config directory
 
               output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
               if echo "$output" | grep -q "Error:"; then
-                  echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml${NC}\n"
-                  echo -e "${output}\n"
+                  echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml${NC}"
+                  echo -e "${output}"
                   counter=$((counter+1))
                   total_files=$((total_files+1))
               else
