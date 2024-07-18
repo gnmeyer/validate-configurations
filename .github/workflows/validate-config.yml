@@ -70,6 +70,9 @@ jobs:
                       break
                   fi
               done < "$file_with_image"
+
+              cd $dir #Move into the config directory
+
               output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
               if echo "$output" | grep -q "Error:"; then
                   echo -e "❌ ${BOLD}Validation ${LIGHT_RED}${BOLD}${ITALIC}failed ${NC}${BOLD}for ${YELLOW}${ITALIC}$dir/config.yaml${NC}\n"
