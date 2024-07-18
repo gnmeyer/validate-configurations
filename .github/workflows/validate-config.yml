@@ -46,7 +46,7 @@ jobs:
           find . -name "colconfig.yaml" > files.txt
 
           # Debug: Show contents of files.txt
-          echo -e "Files found:\n$(cat files.txt)\n"
+          echo -e "${BOLD}Files found:${NC}\n$(cat files.txt)\n"
 
           counter=0
           total_files=0
@@ -57,17 +57,17 @@ jobs:
               root_dir="${dir%/*/*}" # Get the root directory
 
               #DEBUG
-              echo -e "📤 ${ITALIC}Extracted Root Directory: ${CYAN}${BOLD}$root_dir${NC} 🔧\n"
+              echo -e "📤 ${ITALIC}Extracted Root Directory: ${CYAN}${ITALIC}$root_dir${NC} 🔧\n"
 
               file_with_image=$(grep -rl "ghcr.io/liatrio/liatrio-otel-collector" $root_dir)
 
               #DEBUG
-              echo -e "📁 ${ITALIC}Files containing the specified image reference: ${LIGHT_BLUE}${BOLD}$file_with_image${NC} 🔧\n"
+              echo -e "📁 ${ITALIC}Files containing the specified image reference: ${LIGHT_BLUE}${ITALIC}$file_with_image${NC} 🔧\n"
 
               while read -r line; do
                   if [[ $line == *"ghcr.io/liatrio/liatrio-otel-collector"* ]]; then
                       version=$(echo "$line" | awk -F':' '{print $3}')
-                      echo -e "🔍 ${BOLD}Found Image Version: ${MAGENTA}${BOLD}$version 🐳 📦${NC}\n"
+                      echo -e "🔍 ${ITALIC}Found Image Version: ${MAGENTA}${ITALIC}$version 🐳 📦${NC}\n"
                       break
                   fi
               done < "$file_with_image"
