@@ -87,7 +87,7 @@ jobs:
                 done < "$file_with_image"
 
                 cd $dir #Move into the config directory
-                echo -e "🚀 ${ITALIC}Executing: 🐳\n     ${CYAN}${ITALIC}docker run -v $(.):/config \n     ghcr.io/liatrio/liatrio-otel-collector:$version\n     validate --config /config/colconfig.yaml${NC}\n"
+                echo -e "🚀 ${ITALIC}Executing: 🐳\n     ${CYAN}${ITALIC}docker run -v $(pwd):/config \n     ${CYAN}${ITALIC}ghcr.io/liatrio/liatrio-otel-collector:$version\n     ${CYAN}${ITALIC}validate --config /config/colconfig.yaml${NC}\n"
 
                 output=$(docker run -v $(pwd):/config ghcr.io/liatrio/liatrio-otel-collector:$version validate --config /config/colconfig.yaml 2>&1 || true)
                 if echo "$output" | grep -q "Error:"; then
